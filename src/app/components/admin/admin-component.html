@@ -1,0 +1,33 @@
+<!-- features/admin/admin.component.html -->
+<app-navbar></app-navbar>
+
+<div class="admin-container">
+  <div class="header">
+    <h1>👑 Panel de Administración</h1>
+    <p>Bienvenido, {{ user?.name }}</p>
+    <div class="user-badge admin-badge">
+      Rol: Administrador - Acceso Total
+    </div>
+  </div>
+
+  <div class="modules-grid">
+    <div *ngFor="let module of adminModules" class="module-card">
+      <div class="module-icon">{{ module.icon }}</div>
+      <h3>{{ module.name }}</h3>
+      <p>Acceso: {{ module.name }}, Ruta: "{{ module.route }}"</p>
+      <a [routerLink]="module.route" class="access-btn">
+        🔗 Acceder a {{ module.name }}
+      </a>
+    </div>
+  </div>
+
+  <div class="permissions-info">
+    <h3>🎯 Permisos de Administrador</h3>
+    <ul>
+      <li>✅ Acceso completo a todos los módulos</li>
+      <li>✅ Gestión de usuarios y roles</li>
+      <li>✅ Configuración del sistema</li>
+      <li>✅ Reportes y analytics</li>
+    </ul>
+  </div>
+</div>

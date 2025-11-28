@@ -1,0 +1,24 @@
+<!-- features/shared/navbar/navbar.component.html -->
+<nav class="navbar">
+  <div class="nav-brand">
+    <h2>🏢 Sistema Empresarial</h2>
+    <span class="user-role" [class]="'role-' + user?.role">
+      {{ getUserRoleName() }}
+    </span>
+  </div>
+
+  <div class="nav-user">
+    <span class="user-info">
+      👤 {{ user?.name }}
+    </span>
+    <button (click)="logout()" class="logout-btn">
+      🚪 Cerrar Sesión
+    </button>
+  </div>
+
+  <a routerLink="/inventario">Inventario</a>  
+  <a routerLink="/roles">Roles</a>
+  <a routerLink="/compras">Compras</a>
+  <a routerLink="/nomina">Nomina</a>
+  <a routerLink="/ventas">Ventas</a>
+</nav>

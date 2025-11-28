@@ -1,0 +1,34 @@
+<!-- features/vendedor/vendedor.component.html -->
+<app-navbar></app-navbar>
+
+<div class="vendedor-container">
+  <div class="header">
+    <h1>👤 Panel de Vendedor</h1>
+    <p>Bienvenido, {{ user?.name }}</p>
+    <div class="user-badge vendedor-badge">
+      Rol: Vendedor - Acceso Básico
+    </div>
+  </div>
+
+  <div class="modules-grid">
+    <div *ngFor="let module of vendedorModules" class="module-card">
+      <div class="module-icon">{{ module.icon }}</div>
+      <h3>{{ module.name }}</h3>
+      <p>Acceso: {{ module.name }}, Ruta: "{{ module.route }}"</p>
+      <a [routerLink]="module.route" class="access-btn">
+        🔗 Acceder a {{ module.name }}
+      </a>
+    </div>
+  </div>
+
+  <div class="permissions-info">
+    <h3>🎯 Permisos de Vendedor</h3>
+    <ul>
+      <li>✅ Consulta de inventario</li>
+      <li>✅ Registro de ventas</li>
+      <li>❌ Sin acceso a compras</li>
+      <li>❌ Sin acceso a nómina</li>
+      <li>❌ Sin acceso a roles de usuario</li>
+    </ul>
+  </div>
+</div>
