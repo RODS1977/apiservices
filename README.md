@@ -59,12 +59,12 @@ Angular CLI does not come with an end-to-end testing framework by default. You c
 For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
 
 
-## Sistema de Autenticación con Roles - Angular
-# Descripción
+# Sistema de Autenticación con Roles - Angular
+## Descripción
 Sistema completo de autenticación y autorización en Angular que implementa control de acceso basado en roles (RBAC) con rutas protegidas, guardias de seguridad y una interfaz adaptativa según los permisos del usuario.
 
-## Configuración de Servicios
-# 1. Servicio de Autenticación (auth.service.ts)
+# Configuración de Servicios
+## 1. Servicio de Autenticación (auth.service.ts)
 Propósito: Manejar toda la lógica de autenticación, almacenamiento de tokens y gestión de sesiones.
 
 @Injectable({
@@ -128,14 +128,14 @@ export class AuthService {
   }
 }
 
-# Características:
+## Características:
 ✅ Observables reactivos para el estado del usuario
 ✅ Almacenamiento seguro en localStorage
 ✅ Validación de permisos y roles
 ✅ Mock data para desarrollo sin backend
 
 
-# 2. Servicio API Genérico (api.service.ts)
+## 2. Servicio API Genérico (api.service.ts)
 Propósito: Proporcionar métodos HTTP reutilizables con manejo centralizado de errores.
 
 @Injectable({
@@ -173,8 +173,8 @@ export class ApiService {
 }
 
 
-## Sistema de Guardias (Guards)
-# 1. Guardia de Autenticación (auth.guard.ts)
+# Sistema de Guardias (Guards)
+## 1. Guardia de Autenticación (auth.guard.ts)
 Propósito: Proteger rutas que requieren autenticación.
 
 @Injectable({
@@ -201,7 +201,7 @@ export class AuthGuard implements CanActivate {
   }
 }
 
-# 2. Guardia de Roles (role.guard.ts)
+## 2. Guardia de Roles (role.guard.ts)
 Propósito: Proteger rutas basándose en roles y permisos específicos.
 
 @Injectable({
@@ -236,8 +236,8 @@ export class RoleGuard implements CanActivate {
 }
 
 
-## Configuración de Rutas (app.routes.ts)
-# Estrategia de Enrutamiento
+# Configuración de Rutas (app.routes.ts)
+## Estrategia de Enrutamiento
 
 export const routes: Routes = [
   // Public routes
@@ -286,7 +286,7 @@ export const routes: Routes = [
   }
 ];
 
-# Jerarquía de Protección
+## Jerarquía de Protección
 RUTA PÚBLICA (login)
     ↓
 RUTA PROTEGIDA → AuthGuard (¿está autenticado?)
@@ -296,8 +296,8 @@ RUTA CON ROL → RoleGuard (¿tiene el rol correcto?)
 RUTA CON PERMISO → RoleGuard (¿tiene el permiso específico?)
 
 
-## Sistema de Roles y Permisos
-# Matriz de Permisos por Rol
+# Sistema de Roles y Permisos
+## Matriz de Permisos por Rol
 
 Rol	        Permisos	                                                Módulos Accesibles
 Admin	    ['inventario', 'roles', 'compras', 'nomina', 'ventas']	    Todos los módulos
@@ -305,7 +305,7 @@ Supervisor	['inventario', 'compras', 'ventas']	                        Inventari
 Vendedor	['inventario', 'ventas']	                                Inventario, Ventas
 
 
-## Implementación en Componentes
+# Implementación en Componentes
 // En admin.component.ts
 adminModules = [
   { name: 'Inventario', route: '/inventario', icon: '📦' },
@@ -326,8 +326,8 @@ adminModules = [
 </div>
 
 
-## Flujo de Autenticación
-# 1. Login y Redirección
+# Flujo de Autenticación
+## 1. Login y Redirección
 
 login(credentials: LoginRequest): void {
   this.authService.login(credentials).subscribe({
@@ -349,7 +349,7 @@ private redirectByRole(role: string): void {
   }
 }
 
-# 2. Protección de Rutas en Tiempo Real
+## 2. Protección de Rutas en Tiempo Real
 
 // Las guardias se ejecutan automáticamente al navegar
 canActivate(route: ActivatedRouteSnapshot): boolean {
@@ -362,7 +362,7 @@ canActivate(route: ActivatedRouteSnapshot): boolean {
 }
 
 
-# 3. Gestión de Sesión
+## 3. Gestión de Sesión
 
 logout(): void {
   this.authService.logout();
@@ -370,8 +370,8 @@ logout(): void {
 }
 
 
-## Configuración de la Aplicación
-# App Config (app.config.ts)
+# Configuración de la Aplicación
+## App Config (app.config.ts)
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -386,7 +386,7 @@ export const appConfig: ApplicationConfig = {
 };
 
 
-# Environment Configuration
+## Environment Configuration
 // environment.ts
 export const environment = {
   production: false,
@@ -400,60 +400,60 @@ export const environment = {
 };
 
 
-## Cómo Ejecutar el Proyecto
-# 1. Instalación
+# Cómo Ejecutar el Proyecto
+## 1. Instalación
 bash
 npm install
 
-# 2. Servicio de Desarrollo
+## 2. Servicio de Desarrollo
 bash
 ng serve
 
-# 3. Cuentas de Prueba
+## 3. Cuentas de Prueba
 Rol	        Email	                Password	Módulos
 Admin	    admin@empresa.com	    123456	    Todos
 Supervisor	supervisor@empresa.com	123456	    Inventario, Compras, Ventas
 Vendedor	vendedor@empresa.com	123456	    Inventario, Ventas
 
-# 4. Flujo de Prueba
+## 4. Flujo de Prueba
 Acceder a http://localhost:4200
 Login con cualquier cuenta de prueba
 Navegar entre módulos permitidos
 Verificar que no se puede acceder a módulos no permitidos
 
-## Características de Seguridad Implementadas
-# Autenticación
+# Características de Seguridad Implementadas
+## Autenticación
 Login con email y password
 Almacenamiento seguro de tokens
 Logout completo
 Redirección automática post-login
 
-# Autorización
+## Autorización
 Control de acceso basado en roles (RBAC)
 Protección por permisos específicos
 Guardias de rutas
 Interfaz adaptativa según permisos
 
-# UX/UI
+## UX/UI
 Diseño responsivo
 Feedback visual claro
 Navegación intuitiva
 Estados de carga y error
 
-# Arquitectura
+## Arquitectura
 Separación de concerns
 Servicios reutilizables
 Componentes modulares
 Configuración centralizada
 
-## Notas de Implementación
-# Patrones Utilizados
+# Notas de Implementación
+## Patrones Utilizados
 Observer Pattern (Observables para estado reactivo)
 Guard Pattern (Protección de rutas)
 Service Layer Pattern (Lógica de negocio en servicios)
 Component-Based Architecture (Componentes reutilizables)
 
-# Mejores Prácticas Aplicadas
+## Mejores Prácticas Aplicadas
 Inyección de dependencias
 Manejo centralizado de errores
 Tipado fuerte con TypeScript
